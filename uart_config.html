@@ -1,0 +1,132 @@
+<script type="text/javascript">
+	RED.nodes.registerType('uart_config',{
+		category: 'virtual communication',
+		color: '#0080FF',
+		defaults: {
+            name:{value: ""},
+            slot: {value: "1"},
+            port: { value: "UART_COM"},
+            baud_rate: {value: "9600"},
+            word_length: {value: "8"},
+            parity: { value: "0"},
+            stop_bits: {value: "1"}	
+		},
+		inputs:1,
+		outputs:1,
+		icon: "COM.svg",
+		label: function() {
+			return this.name? "UART Setup - " + this.name: "UART Setup";
+		},
+		oneditprepare: function() { 
+			var node = this;
+			var scope = node.scope || [];
+
+			$("#node-input-compare_select").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "interval"){ $(".node-input-max-value").show(); $(".node-input-min-value").show(); }
+				if (compare === "maxValue"){ $(".node-input-max-value").show(); $(".node-input-min-value").hide(); }
+				if (compare === "minValue"){ $(".node-input-max-value").hide(); $(".node-input-min-value").show(); }
+			});
+
+		}
+	});	
+</script>
+
+<style>
+	label{ width: 100% !important; margin-bottom: 2px !important; }
+	.columm{ display: flex !important; flex-direction: column !important; }
+	hr { width: 40% !important; float: left !important; }
+	.hr-div-compare{ display: flex !important; justify-content: space-between !important; }
+	.optional{ height: max-content !important; margin-top: 10px !important; }
+	.descript{ text-align: center; }
+	.columm-50{ display: flex !important; flex-direction: column !important; width: 50% !important; float: left !important; }
+    .columm-30{ display: flex !important; flex-direction: column !important; width: 30% !important; float: left !important; }
+    .columm-70{ display: flex !important; flex-direction: column !important; width: 70% !important; float: left !important; }
+    hr { width: 40% !important; float: left !important; }
+    .hr-div-get{ display: flex !important; justify-content: space-between !important; margin-top: 250px !important; }
+    .optional{ height: max-content !important; margin-top: 10px !important; }
+    .descript{ text-align: center; }
+    .descript-div{ max-width: 444px !important; }
+    span.red-ui-typedInput-type-label { width: 250px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .btn-aln{ display: flex !important; flex-direction: row-reverse !important; align-content: center; align-items: flex-end; }
+</style>
+
+<script type="text/html" data-template-name="uart_config">
+	<div class="form-row columm descript-div">
+		<strong class="descript">
+			Makes the rest of the comparisons adjacent to the “get command message”.
+		</strong>
+	</div>
+
+	<div class="columm" style=" position: relative; display:flex;">
+        <div class="form-row columm-70">
+            <label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Identification Note</label>
+            <input type="text" id="node-input-name" placeholder="Name" style="width: 100%">
+        </div>
+        <div class="form-row columm">
+            <label  for="node-config-input-slot"><i class="fa fa-sliders"></i> Slot</label>
+            <input type="number" id="node-input-slot" style="width:20%;">
+        </div>
+	</div>
+	<div class="hr-div-compare">
+		<hr>Message<hr>
+    </div>
+	<div class="columm"  style=" position: relative; display:flex;">
+        <div class="form-row columm"  style="width: max-content;">
+            <label style=" margin-top: 8px;" for="node-input-port"><i class="icon-tag"></i>Port:</label>
+            <select id="node-input-port"   style="width: 160px;">
+                <option value="UART_COM">UART_COM</option>
+                <option value="UART_1">UART_1</option>
+                <option value="UART_2">UART_2</option>
+                <option value="UART_3">UART_3</option>
+                <option value="UART_4">UART_4</option>
+            </select>
+        </div>
+        <div class="form-row columm"  style="width: max-content;">
+            <label style=" margin-top: 8px;" for="node-input-baud_rate"><i class="icon-tag"></i>Baud rate:</label>
+            <select id="node-input-baud_rate"   style="width: 160px;">
+                <option value="110">110</option>
+                <option value="300">300</option>
+                <option value="600">600</option>
+                <option value="1200">1200</option>
+                <option value="2400">2400</option>
+                <option value="4800">4800</option>
+                <option value="9600">9600</option>
+                <option value="14400">14400</option>
+                <option value="19200">19200</option>
+                <option value="38400">38400</option>
+                <option value="57600">57600</option>
+                <option value="115200">115200</option>
+                <option value="128000">128000</option>
+                <option value="256000">256000</option>
+            </select>
+        </div>
+        <div class="form-row columm"  style="width: max-content;">
+            <label style=" margin-top: 8px;" for="node-input-word_length"><i class="icon-tag"></i>Word length:</label>
+            <select id="node-input-word_length"   style="width: 160px;">
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+        </div>
+        <div class="form-row columm"  style="width: max-content;">
+            <label style=" margin-top: 8px;" for="node-input-parity"><i class="icon-tag"></i>Parity:</label>
+            <select id="node-input-parity"   style="width: 160px;">
+                <option value="0">None</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+        </div>
+        <div class="form-row columm"  style="width: max-content;">
+            <label style=" margin-top: 8px;" for="node-input-stop_bits"><i class="icon-tag"></i>Stop bits:</label>
+            <select id="node-input-stop_bits"   style="width: 160px;">
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+        </div>
+
+    </div>
+</script>
+
+<script type="text/html" data-help-name="uart_config">
+  	<p>Makes the rest of the comparisons adjacent to the “get command message”.</p>
+</script>
