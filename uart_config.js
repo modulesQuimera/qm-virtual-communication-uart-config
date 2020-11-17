@@ -18,12 +18,13 @@ module.exports = function(RED) {
 			var globalContext = node.context().global;
 			var currentMode = globalContext.get("currentMode");
 			var file = globalContext.get("exportFile");
-            //var slot = globalContext.get("slot");
+            var slot = globalContext.get("slot");
                      
             var command = {
                 type: "communication_modular_V1_0",
                 slot: parseInt(node.slot),
                 method: "UART_config",
+                port: node.port,
                 baud_rate: parseInt(node.baud_rate),
                 word_length: parseInt( node.word_length),
                 parity:  parseInt(node.parity),
