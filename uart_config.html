@@ -5,7 +5,7 @@
 		defaults: {
             name:{value: ""},
             slot: {value: "1"},
-            port: { value: "UART_COM"},
+            port: { value: "RS232_DB9"},
             baud_rate: {value: "9600"},
             word_length: {value: "8"},
             parity: { value: "0"},
@@ -75,6 +75,9 @@
         <div class="form-row columm"  style="width: max-content;">
             <label style=" margin-top: 8px;" for="node-input-port"><i class="icon-tag"></i>Port:</label>
             <select id="node-input-port"   style="width: 160px;">
+                <option value="RS232_DB9">RS232_DB9</option>
+                <option value="RS232_RJ11">RS232_RJ11</option>
+                <option value="RS485">RS485</option>
                 <option value="UART_COM">UART_COM</option>
                 <option value="UART_1">UART_1</option>
                 <option value="UART_2">UART_2</option>
